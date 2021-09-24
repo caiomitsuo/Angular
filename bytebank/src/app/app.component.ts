@@ -11,7 +11,6 @@ export class AppComponent {
 
   transferir($event){
     console.log($event);
-    this.transferencia = $event.destino;
-    this.transferencia = $event.valor;
+    this.transferencia = $event;
   }
 }
