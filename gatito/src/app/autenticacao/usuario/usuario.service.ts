@@ -3,11 +3,13 @@ import { TokenService } from '../token.service';
 import { Usuario } from './usuario';
 import jwt_decode from 'jwt-decode';
 import { BehaviorSubject } from 'rxjs';
+
 @Injectable({
   providedIn: 'root',
 })
 export class UsuarioService {
   private usuarioSubject = new BehaviorSubject<Usuario>({});
+
   constructor(private tokenService: TokenService) {
     if (this.tokenService.possuiToken()) {
       this.decodificaJWT();
