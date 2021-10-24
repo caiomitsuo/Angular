@@ -1,15 +1,22 @@
-import { HttpClient } from '@angular/common/http';
+import { TokenService } from './../autenticacao/token.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Animais } from './animais';
 
 const API = 'http://localhost3000';
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AnimaisService {
+  constructor(private http: HttpClient, private tokenService: TokenService) {}
 
-  constructor(private http:HttpClient) { }
+  listaDoUsuario(nomeDoUsuario: string): Observable<Animais> {
+    const token = this.tokenService.retornaToken();
+    const headers = new HttpHeaders().append('x-acess-token', token);
 
-  listaDoUsuario(nomeDoUsuario: string):Observable<Animais> {
-    return this.http.get<Animais>(`$`)
+    return this.http.get<Animais>(`${API}/${nomeDoUsuario}/photos`, {
+      headers,
+    });
   }
 }
